@@ -1,0 +1,20 @@
+{
+    "name": "caps",
+    "version": "1.0.0",
+    "description": "CAPS - The Code Academy Parcel Servicen",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "Sydney Pagalan",
+    "license": "MIT",
+    "dependencies": {
+        "events": "^3.3.0",
+        "socket.io": "^4.7.2"
+    },
+    "devDependencies": {
+        "jest": "^29.7.0"
+    }
+}
