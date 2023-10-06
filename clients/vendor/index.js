@@ -11,7 +11,14 @@ capsNamespace.on('connection', (socket) => {
 socket.on('connect', () => {
   console.log('Vendor client connected');
   socket.emit('join', 'One Piece'); // Join the room based on Vendor ID
-  simulatePickup(socket);
+
+  // Simulate pickup of order
+  socket.emit('getAll', { clientId: 'One Piece', eventName: 'delivered' });
+
+  // Listen for 'received' event from the CAPS server
+  socket.on('received', (message) => {
+    console.log('received', message);
+  });
 });
 
 socket.on('disconnect', () => {
@@ -20,6 +27,10 @@ socket.on('disconnect', () => {
 
 socket.on('delivered', (payload) => {
   console.log(`VENDOR: Thank you for delivering ${payload.orderId}`);
+
+  messageQueue.delivered.push(payload);
+
+  socket.emit('received', { clientId: 'One Piece', messageId: payload.orderId });
 });
 
 function simulatePickup(socket) {

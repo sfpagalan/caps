@@ -11,9 +11,10 @@ capsNamespace.on('connection', (socket) => {
 socket.on('pickup', (payload) => {
   console.log(`DRIVER: picked up ${payload.orderId}`);
   
-  // simulate in-transit and delivered events
-  simulateInTransit(payload);
-  setTimeout(() => simulateDelivered(payload), 3000); // Simulate delivery after 3 seconds
+  messageQueue.pickup.push(payload);
+
+  socket.emit('received', { clientId: 'Driver', messageId: payload.orderId });
+
 });
 
 function simulateInTransit(payload) {
